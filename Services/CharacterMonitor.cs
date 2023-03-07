@@ -4,6 +4,7 @@ using System.Linq;
 using CriticalCommonLib.Models;
 using Dalamud.Plugin.Services;
 using FFXIVClientStructs.FFXIV.Client.Game;
+using FFXIVClientStructs.FFXIV.Client.Game.Housing;
 using FFXIVClientStructs.FFXIV.Client.UI.Info;
 
 namespace CriticalCommonLib.Services
@@ -331,7 +332,7 @@ namespace CriticalCommonLib.Services
                     if (infoProxy != null)
                     {
                         var freeCompanyInfoProxy = (InfoProxyFreeCompany*)infoProxy;
-                        return freeCompanyInfoProxy->Id;
+                        return freeCompanyInfoProxy->ID;
                     }
 
                     return 0;
@@ -704,7 +705,7 @@ namespace CriticalCommonLib.Services
             if (_lastRetainerCheck.Value.AddSeconds(2) <= lastUpdateTime)
             {
                 _lastRetainerCheck = null;
-                var retainerList = retainerManager->Retainers;
+                var retainerList = retainerManager->RetainersSpan;
                 var count = retainerManager->GetRetainerCount();
                 var currentCharacter = _clientState.LocalPlayer;
                 if (currentCharacter != null)
@@ -712,23 +713,23 @@ namespace CriticalCommonLib.Services
                     for (var i = 0; i < retainerList.Length; i++)
                     {
                         var retainerInformation = retainerList[i];
-                        if (retainerInformation.RetainerId != 0)
+                        if (retainerInformation.RetainerID != 0)
                         {
                             Character character;
-                            if (_characters.ContainsKey(retainerInformation.RetainerId))
+                            if (_characters.ContainsKey(retainerInformation.RetainerID))
                             {
-                                character = _characters[retainerInformation.RetainerId];
+                                character = _characters[retainerInformation.RetainerID];
                             }
                             else
                             {
                                 character = new Character();
-                                character.CharacterId = retainerInformation.RetainerId;
-                                _characters[retainerInformation.RetainerId] = character;
+                                character.CharacterId = retainerInformation.RetainerID;
+                                _characters[retainerInformation.RetainerID] = character;
                             }
 
                             if (character.UpdateFromRetainerInformation(retainerInformation, currentCharacter, i))
                             {
-                                Service.Log.Debug("Retainer " + retainerInformation.RetainerId + " was updated.");
+                                Service.Log.Debug("Retainer " + retainerInformation.RetainerID + " was updated.");
                                 character.OwnerId = _clientState.LocalContentId;
                                 _framework.RunOnFrameworkThread(() =>
                                 {
@@ -759,7 +760,7 @@ namespace CriticalCommonLib.Services
                 if (infoProxy != null)
                 {
                     var freeCompanyInfoProxy = (InfoProxyFreeCompany*)infoProxy;
-                    var freeCompanyId = freeCompanyInfoProxy->Id;
+                    var freeCompanyId = freeCompanyInfoProxy->ID;
 
                     if (freeCompanyId != 0)
                     {
