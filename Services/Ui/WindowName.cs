@@ -35,6 +35,8 @@ namespace CriticalCommonLib.Services.Ui
         Cabinet,
         CabinetWithdraw,
         
+        MiragePrismMiragePlate,
+        
         Synthesis,
         SynthesisSimple,
         SubmarinePartsMenu,
