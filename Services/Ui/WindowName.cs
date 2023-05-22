@@ -38,5 +38,7 @@ namespace CriticalCommonLib.Services.Ui
         Synthesis,
         SynthesisSimple,
         SubmarinePartsMenu,
+
+        MiragePrismMiragePlate,
     }
 }
