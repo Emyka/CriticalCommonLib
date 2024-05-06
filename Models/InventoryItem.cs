@@ -1125,7 +1125,7 @@ namespace CriticalCommonLib.Models
                 SortedContainer = (InventoryType)serializedItem[20],
                 SortedCategory = (InventoryCategory)serializedItem[21],
                 SortedSlotIndex = (int)serializedItem[22],
-                RetainerId = (uint)serializedItem[23],
+                RetainerId = serializedItem[23],
                 RetainerMarketPrice = (uint)serializedItem[24],
                 GearSets = gearSets,
             };
